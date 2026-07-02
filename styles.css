@@ -1,3 +1,7 @@
+:root {
+    --header-height: 90px;
+}
+
 /* =========================
    BASE RESET
 ========================= */
@@ -33,6 +37,23 @@ body.dark-mode {
    HEADER
 ========================= */
 
+header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.header1 {
+    margin: 0;
+    display: flex;
+    align-items: center;
+}
+
+.header1 a {
+    color: #4facfe;
+    text-decoration: dotted;
+}
+
 .desktop-nav {
     display: flex;
     gap: 20px;
@@ -54,12 +75,50 @@ body.dark-mode {
     display: flex;
     justify-content: space-between;
     align-items: center;
-
     padding: 20px 30px;
     position: sticky;
     top: 0;
-
     z-index: 1000;
+    opacity: 1;
+}
+
+#navigationBar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    position: sticky;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    height: var(--header-height);
+
+    position: sticky;
+    overflow: hidden; /* important */
+}
+
+#navigationBar {
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(10px);
+}
+
+body.dark-mode #navigationBar {
+    background: rgba(15, 15, 15, 0.98);
+    backdrop-filter: blur(10px);
+}
+
+#navigationBar {
+    height: var(--header-height);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+main {
+    padding-top: var(--header-height);
+    padding: calc(var(--header-height) + 20px) 20px 40px;
+    max-width: 1000px;
+    margin: auto;
 }
 
 .menu-icon {
@@ -84,14 +143,18 @@ body.dark-mode {
 
 #scrollProgress {
     position: absolute;
-    left: 0;
     bottom: 0;
-
+    left: 0;
     width: 100%;
     height: 4px;
-
     background: rgba(0, 0, 0, 0.08);
-    overflow: hidden;
+    z-index: 1;
+}
+
+#scrollProgress {
+    width: 100%;
+    height: 4px;
+    background: rgba(0, 0, 0, 0.08);
 }
 
 body.dark-mode #scrollProgress {
@@ -181,7 +244,7 @@ main {
 }
 
 /* =========================
-   SECTIONS BASE + SPACING
+   SECTIONS BASE
 ========================= */
 
 section {
@@ -189,16 +252,41 @@ section {
     padding: 40px 25px;
 
     border-radius: 16px;
+    background: transparent;
 
-    transition:
-        opacity 0.8s ease,
-        transform 0.8s ease;
+    /* IMPORTANT: keep visible by default */
+    opacity: 1;
+    transform: none;
+
+    transition: transform 0.6s ease, opacity 0.6s ease;
 }
 
-/* when section becomes visible */
+section {
+    transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1),
+                opacity 0.8s ease;
+}
+
+/* =========================
+   ANIMATION STATE
+========================= */
+
+section.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+/* when visible */
 section.show {
     opacity: 1;
     transform: translateY(0);
+}
+
+/* =========================
+   DARK MODE SUPPORT
+========================= */
+
+body.dark-mode section {
+    background: rgba(255, 255, 255, 0.02);
 }
 
 /* =========================
@@ -212,6 +300,7 @@ body.dark-mode section {
 /* =========================
    HEADINGS
 ========================= */
+
 
 h2 {
     font-size: 2rem;

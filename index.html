@@ -56,6 +56,11 @@
 
     </div>
 
+        <div id="scrollProgress">
+    <div id="scrollBar"></div>
+</div>
+
+
 </header>
 
 
@@ -189,7 +194,7 @@
                  data-desc="A hard-surface modelling study focused on achieving realistic proportions, surface detail, and material accuracy. Emphasis was placed on clean topology, reflective shader setup, and lighting to replicate a commercially lit product render.">
 
             <div class="portfolio-text">
-                <h3>Can Model</h3>
+                <h3>Coke Can</h3>
                 <p>Materials • Hard Surface</p>
             </div>
         </div>
@@ -221,7 +226,7 @@
         data-title="AirPods Product Render"
         data-desc="A product-focused 3D animation exploring lighting, material realism, and smooth looping motion presentation.">
 
-        <video muted playsinline loop>
+        <video muted playsinline loop preload="metadata">
             <source src="Airpods.webm" type="video/webm">
         </video>
 
@@ -321,41 +326,45 @@
 
 <!-- ================= SCRIPT ================= -->
 <script>
-/* =====================================================
+/* =========================
    ELEMENTS
-===================================================== */
+========================= */
 
 const nav = document.getElementById("myNav");
 const menuIcon = document.querySelector(".menu-icon");
+
 const modal = document.getElementById("imageModal");
 const modalImg = document.getElementById("modalImage");
 const modalVideo = document.getElementById("modalVideo");
 const modalTitle = document.getElementById("modalTitle");
 const modalDesc = document.getElementById("modalDesc");
+
 const topBtn = document.getElementById("myBtn");
 const scrollBar = document.getElementById("scrollBar");
-let themeBtn = document.getElementById("toggleButton");
+const themeBtn = document.getElementById("toggleButton");
 
-/* =====================================================
+
+/* =========================
    HAMBURGER MENU
-===================================================== */
+========================= */
 
 function toggleMenu(icon) {
+    if (!nav) return;
+
     nav.classList.toggle("open");
     icon.classList.toggle("change");
 }
 
-// Close menu when clicking a link
+// close menu when clicking links
 document.querySelectorAll(".overlay-content a").forEach(link => {
     link.addEventListener("click", () => {
         if (!nav || !menuIcon) return;
-
         nav.classList.remove("open");
         menuIcon.classList.remove("change");
     });
 });
 
-// Close menu when clicking outside
+// close menu when clicking outside
 if (nav) {
     nav.addEventListener("click", (e) => {
         if (e.target === nav) {
@@ -365,89 +374,85 @@ if (nav) {
     });
 }
 
-// ESC key closes menu + modal
-document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") {
-        if (nav) nav.classList.remove("open");
-        if (menuIcon) menuIcon.classList.remove("change");
-        closeModal();
-    }
-});
 
-/* =====================================================
-   BACK TO TOP
-===================================================== */
+/* =========================
+   MODAL OPEN
+========================= */
 
-function topFunction() {
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-    });
-}
+function openModal(el) {
+    if (!modal) return;
 
-if (topBtn) {
-    window.addEventListener("scroll", () => {
-        if (window.scrollY > 300) {
-            topBtn.classList.add("show");
-        } else {
-            topBtn.classList.remove("show");
-        }
-    });
-}
+    const img = el.querySelector("img");
+    const video = el.querySelector("video");
 
-/* =====================================================
-   THEME TOGGLE
-===================================================== */
-
-if (themeBtn) {
-
-    const savedTheme = localStorage.getItem("theme");
-
-    const text = themeBtn.querySelector(".btn-text");
-    const icon = themeBtn.querySelector(".btn-icon");
-
-    if (savedTheme === "dark") {
-        document.body.classList.add("dark-mode");
-        if (text) text.textContent = "Dark Mode";
-        if (icon) icon.textContent = "🌙";
-    } else {
-        if (text) text.textContent = "Light Mode";
-        if (icon) icon.textContent = "☀️";
+    // reset modal state
+    if (modalImg) {
+        modalImg.src = "";
+        modalImg.style.display = "none";
     }
 
-    themeBtn.addEventListener("click", () => {
+    if (modalVideo) {
+        modalVideo.pause();
+        modalVideo.currentTime = 0;
+        modalVideo.src = "";
+        modalVideo.style.display = "none";
+    }
 
-        const isDark = document.body.classList.toggle("dark-mode");
+    // IMAGE
+    if (img) {
+        modalImg.src = img.src;
+        modalImg.style.display = "block";
 
-        localStorage.setItem("theme", isDark ? "dark" : "light");
+        modalTitle.textContent = img.dataset.title || "";
+        modalDesc.textContent = img.dataset.desc || "";
 
-        if (text) {
-            text.textContent = isDark ? "Dark Mode" : "Light Mode";
-        }
+        modal.classList.add("open");
+        return;
+    }
 
-        if (icon) {
-            icon.textContent = isDark ? "🌙" : "☀️";
-        }
-    });
+    // VIDEO
+    if (video) {
+        const source = video.querySelector("source");
+
+        modalVideo.src = source ? source.src : video.src;
+        modalVideo.style.display = "block";
+
+        modalVideo.loop = true;
+        modalVideo.muted = true;
+        modalVideo.playsInline = true;
+
+        modalVideo.load();
+        modalVideo.play().catch(() => {});
+
+        modalTitle.textContent = el.dataset.title || "";
+        modalDesc.textContent = el.dataset.desc || "";
+
+        modal.classList.add("open");
+        return;
+    }
+
+    console.log("No media found in portfolio item:", el);
 }
 
-/* =====================================================
-   ACHIEVEMENT DROPDOWNS
-===================================================== */
+document.querySelectorAll(".portfolio-item").forEach(item => {
+    const video = item.querySelector("video");
 
-document.querySelectorAll(".achievement-card").forEach(card => {
+    if (!video) return;
 
-    const btn = card.querySelector(".achievement-toggle");
-
-    btn.addEventListener("click", () => {
-        card.classList.toggle("open");
+    item.addEventListener("mouseenter", () => {
+        video.play().catch(() => {});
     });
 
+    item.addEventListener("mouseleave", () => {
+        video.pause();
+    });
 });
 
-/* =====================================================
-   MODAL (IMAGE ZOOM)
-===================================================== */
+
+
+/* =========================
+   MODAL CLOSE
+========================= */
 
 function closeModal() {
     if (!modal) return;
@@ -467,70 +472,88 @@ function closeModal() {
     }
 }
 
-function openModal(el) {
-    if (!modal) return;
-
-    const img = el.querySelector("img");
-    const video = el.querySelector("video");
-
-    // reset modal
-    if (modalImg) {
-        modalImg.src = "";
-        modalImg.style.display = "none";
-    }
-
-    if (modalVideo) {
-        modalVideo.pause();
-        modalVideo.currentTime = 0;
-        modalVideo.src = "";
-        modalVideo.style.display = "none";
-    }
-
-    // =====================
-    // IMAGE
-    // =====================
-    if (img) {
-        modalImg.src = img.src;
-        modalImg.style.display = "block";
-
-        modalTitle.textContent = img.dataset.title || "";
-        modalDesc.textContent = img.dataset.desc || "";
-
-        modal.classList.add("open");
-        return;
-    }
-
-    // =====================
-    // VIDEO
-    // =====================
-    if (video) {
-        const source = video.querySelector("source");
-
-        modalVideo.src = source ? source.src : video.src;
-        modalVideo.style.display = "block";
-
-        modalVideo.loop = true;
-        modalVideo.currentTime = 0;
-        modalVideo.load();
-
-        modalVideo.play().catch(() => {});
-
-        modalTitle.textContent = el.dataset.title || "";
-        modalDesc.textContent = el.dataset.desc || "";
-
-        modal.classList.add("open");
-        return;
-    }
-
-    console.log("No media found in item:", el);
+// click outside modal closes
+if (modal) {
+    modal.addEventListener("click", (e) => {
+        if (e.target === modal) {
+            closeModal();
+        }
+    });
 }
 
-/* =====================================================
+
+/* =========================
+   ESC KEY (GLOBAL)
+========================= */
+
+document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+        if (nav) {
+            nav.classList.remove("open");
+            if (menuIcon) menuIcon.classList.remove("change");
+        }
+        closeModal();
+    }
+});
+
+
+/* =========================
+   BACK TO TOP
+========================= */
+
+function topFunction() {
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+
+if (topBtn) {
+    window.addEventListener("scroll", () => {
+        if (window.scrollY > 300) {
+            topBtn.classList.add("show");
+        } else {
+            topBtn.classList.remove("show");
+        }
+    });
+}
+
+
+/* =========================
+   THEME TOGGLE
+========================= */
+
+if (themeBtn) {
+    const text = themeBtn.querySelector(".btn-text");
+    const icon = themeBtn.querySelector(".btn-icon");
+
+    const savedTheme = localStorage.getItem("theme");
+
+    if (savedTheme === "dark") {
+        document.body.classList.add("dark-mode");
+        if (text) text.textContent = "Dark Mode";
+        if (icon) icon.textContent = "🌙";
+    } else {
+        if (text) text.textContent = "Light Mode";
+        if (icon) icon.textContent = "☀️";
+    }
+
+    themeBtn.addEventListener("click", () => {
+        const isDark = document.body.classList.toggle("dark-mode");
+
+        localStorage.setItem("theme", isDark ? "dark" : "light");
+
+        if (text) text.textContent = isDark ? "Dark Mode" : "Light Mode";
+        if (icon) icon.textContent = isDark ? "🌙" : "☀️";
+    });
+}
+
+
+/* =========================
    SCROLL PROGRESS BAR
-===================================================== */
+========================= */
 
 function updateScrollProgress() {
-
     if (!scrollBar) return;
 
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
@@ -539,8 +562,7 @@ function updateScrollProgress() {
         document.documentElement.scrollHeight -
         document.documentElement.clientHeight;
 
-    const progress =
-        scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+    const progress = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
 
     scrollBar.style.width = `${progress}%`;
 }
@@ -548,12 +570,6 @@ function updateScrollProgress() {
 window.addEventListener("scroll", updateScrollProgress);
 window.addEventListener("resize", updateScrollProgress);
 window.addEventListener("load", updateScrollProgress);
-
-document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") {
-        closeModal();
-    }
-});
 
 
 </script>

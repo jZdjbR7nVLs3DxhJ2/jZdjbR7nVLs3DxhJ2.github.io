@@ -2,13 +2,19 @@
     --header-height: 90px;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 /* =========================
    BASE RESET
 ========================= */
 
 html {
-    scroll-padding-top: 90px;
+    scroll-behavior: smooth;
+    scroll-padding-top: var(--header-height);
 }
+
 * {
     margin: 0;
     padding: 0;

@@ -107,9 +107,6 @@ header {
     top: 0;
     z-index: 1000;
     opacity: 1;
-}
-
-#navigationBar {
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -117,29 +114,21 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-
     height: var(--header-height);
-
     position: sticky;
-    overflow: hidden; /* important */
-}
-
-#navigationBar {
+    overflow: hidden;
     background: rgba(255, 255, 255, 0.98);
     backdrop-filter: blur(10px);
-}
-
-body.dark-mode #navigationBar {
-    background: rgba(15, 15, 15, 0.98);
-    backdrop-filter: blur(10px);
-}
-
-#navigationBar {
     height: var(--header-height);
     position: sticky;
     top: 0;
     z-index: 1000;
 }
+body.dark-mode #navigationBar {
+    background: rgba(15, 15, 15, 0.98);
+    backdrop-filter: blur(10px);
+}
+
 
 #rightNavigation {
     display: flex;
@@ -269,13 +258,6 @@ body.dark-mode .menu-icon div {
     color: #4facfe;
 }
 
-
-main {
-    padding: 40px 20px;
-    max-width: 1000px;
-    margin: auto;
-}
-
 /* =========================
    SECTIONS BASE
 ========================= */
@@ -283,24 +265,15 @@ main {
 section {
     margin-bottom: 200px;
     padding: 40px 25px;
-
     border-radius: 16px;
     background: transparent;
 
-    /* IMPORTANT: keep visible by default */
     opacity: 1;
-    transform: none;
 
-    transition: transform 0.6s ease, opacity 0.6s ease;
-}
-
-section {
-    transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1),
-                opacity 0.8s ease;
-}
-
-section {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition:
+        transform 0.3s ease,
+        opacity 0.6s ease,
+        box-shadow 0.3s ease;
 }
 
 section:hover {
@@ -369,6 +342,10 @@ h3 {
     padding: calc(var(--header-height)px) 20px 60px;
 }
 
+.hero-title {
+    min-height: 80px;
+}
+
 .hero-content {
     max-width: 800px;
 }
@@ -402,7 +379,7 @@ h3 {
 
 /* buttons */
 .btn {
-    padding: 20px 18px;
+    padding: 14px 26px;
     border-radius: 10px;
     text-decoration: none;
     font-weight: 500;
@@ -516,10 +493,6 @@ body.dark-mode .skill-category:hover {
 .portfolio-item:hover {
     transform: scale(1.05);
     box-shadow: 0 15px 30px rgba(0,0,0,0.15);
-}
-
-.portfolio-item:hover {
-    transform: scale(1.03);
 }
 
 body.dark-mode .portfolio-item {
@@ -726,6 +699,36 @@ body.dark-mode .achievement-toggle:hover {
     color: white;
     max-width: 300px;
 }
+
+@media (max-width: 768px) {
+
+    .modal-content {
+        flex-direction: column;
+        width: 90%;
+        max-width: 500px;
+        gap: 20px;
+        text-align: center;
+    }
+
+    #modalImage,
+    #modalVideo {
+        max-width: 100%;
+        max-height: 45vh;
+        width: auto;
+        height: auto;
+        object-fit: contain;
+    }
+
+    .modal-right {
+        max-width: 100%;
+    }
+
+}
+
+    .modal-right h2 {
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+    }
 
 /* =========================
    FOOTER

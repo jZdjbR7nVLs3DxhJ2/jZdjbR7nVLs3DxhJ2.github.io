@@ -60,15 +60,9 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         if (!target) return;
 
         e.preventDefault();
-
-        target.scrollIntoView({
-            behavior: "smooth",
-            block: "start"
         });
 
     });
-
-});
 
 
 /* ==========================================
@@ -101,27 +95,24 @@ function openModal(el) {
     }
 
     if (video) {
-
         const source = video.querySelector("source");
 
-        modalVideo.src = source ? source.src : video.src;
-        modalVideo.style.display = "block";
+        if (source) {
+            modalVideo.src = source.src;
+        }
 
+        modalVideo.style.display = "block";
         modalVideo.loop = true;
         modalVideo.muted = true;
         modalVideo.playsInline = true;
-
         modalVideo.load();
+
         modalVideo.play().catch(() => {});
-
-        modalTitle.textContent = el.dataset.title || "";
-        modalDesc.textContent = el.dataset.desc || "";
-
     }
 
-    modal.classList.add("open");
+        modal.classList.add("open");
 
-}
+    }
 
 function closeModal() {
 
@@ -325,10 +316,10 @@ document.addEventListener("keydown", (e) => {
 ========================================== */
 
 const words = [
-    "Software Developer",
-    "Web Designer",
-    "3D Artist",
-    "Problem Solver"
+    "Software Developer...",
+    "Web Designer...",
+    "3D Artist...",
+    "Problem Solver..."
 ];
 
 const typedText = document.getElementById("typed-text");
@@ -366,3 +357,37 @@ if (typedText) {
 
     type();
 }
+
+
+/* ==========================================
+    Reveal as Scroll
+========================================== */
+
+const sections = document.querySelectorAll("section");
+
+const observer = new IntersectionObserver(
+    (entries) => {
+        entries.forEach(entry => {
+            
+            if (entry.isIntersecting) {
+                // scrolling down into view → show
+                entry.target.classList.add("show");
+                entry.target.classList.remove("reveal");
+            } else {
+                // scrolled back up / out of view → hide again
+                entry.target.classList.remove("show");
+                entry.target.classList.add("reveal");
+            }
+
+        });
+    },
+    {
+        threshold: 0.2,
+        rootMargin: "0px 0px -10% 0px"
+    }
+);
+
+sections.forEach(section => {
+    section.classList.add("reveal");
+    observer.observe(section);
+});

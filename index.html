@@ -15,6 +15,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Emojis-->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 
 <body>
@@ -31,12 +34,12 @@
 
     <!-- DESKTOP NAV -->
     <nav class="desktop-nav">
-        <a href="#summary">Summary</a>
-        <a href="#about">About</a>
-        <a href="#skills">Skills</a>
-        <a href="#portfolio">Portfolio</a>
-        <a href="#achievements">Achievements</a>
-        <a href="contact.html">Contact</a>
+        <a href="#summary"><i class="fa-solid fa-house"></i> Summary</a>
+        <a href="#about"><i class="fa-solid fa-user"></i> About</a>
+        <a href="#skills"><i class="fa-solid fa-code"></i> Skills</a>
+        <a href="#portfolio"><i class="fa-solid fa-image"></i> Portfolio</a>
+        <a href="#achievements"><i class="fa-solid fa-trophy"></i> Achievements</a>
+        <a href="contact.html"><i class="fa-solid fa-envelope"></i> Contact</a>
     </nav>
 
     <div id="rightNavigation">
@@ -82,13 +85,33 @@
 
 <!-- ================= MAIN CONTENT ================= -->
 <main>
-
+    
 <!-- ===== SUMMARY ===== -->
-<section id="summary">
-    <h2>Summary</h2>
-    <p>
-           Hi my name is Josh, I build interactive web projects using HTML, CSS, and JavaScript, alongside 3D environments and product renders in Blender. I enjoy solving problems through design, development and creative thinking.
-    </p>
+<section class="hero" id="summary">
+
+    <div class="hero-content">
+
+        <p class="hero-kicker">Year 12 Student • Developer • 3D Designer</p>
+
+        <h1 class="hero-title">Joshua Halpin</h1>
+
+        <p class="typing">
+            <span id="typed-text"></span><span class="cursor">|</span>
+        </p>
+
+        <p class="hero-description">
+            I build interactive web experiences using HTML, CSS, and JavaScript,
+            alongside 3D environments and product renders in Blender.
+            I focus on clean design, smooth interactions, and real-world projects.
+        </p>
+
+        <div class="hero-buttons">
+            <a href="#portfolio" class="btn primary">View Projects</a>
+            <a href="#about" class="btn secondary">About Me</a>
+        </div>
+
+    </div>
+
 </section>
 
 <!-- ===== ABOUT ===== -->
@@ -140,7 +163,7 @@
     <div class="skills-grid">
 
         <div class="skill-category">
-            <h3>Web Development</h3>
+            <h3><i class="fa-solid fa-laptop-code"></i> Web Development</h3>
             <p>HTML5 (fundamental)</p>
             <p>JavaScript (fundamental)</p>
         </div>
@@ -323,254 +346,7 @@
 </div>
 
 <!-- ================= SCRIPT ================= -->
-<script>
-/* =========================
-   ELEMENTS
-========================= */
-
-const nav = document.getElementById("myNav");
-const menuIcon = document.querySelector(".menu-icon");
-
-const modal = document.getElementById("imageModal");
-const modalImg = document.getElementById("modalImage");
-const modalVideo = document.getElementById("modalVideo");
-const modalTitle = document.getElementById("modalTitle");
-const modalDesc = document.getElementById("modalDesc");
-
-const topBtn = document.getElementById("myBtn");
-const scrollBar = document.getElementById("scrollBar");
-const themeBtn = document.getElementById("toggleButton");
-
-
-/* =========================
-   HAMBURGER MENU
-========================= */
-
-function toggleMenu(icon) {
-    if (!nav) return;
-
-    nav.classList.toggle("open");
-    icon.classList.toggle("change");
-}
-
-// close menu when clicking links
-document.querySelectorAll(".overlay-content a").forEach(link => {
-    link.addEventListener("click", () => {
-        if (!nav || !menuIcon) return;
-        nav.classList.remove("open");
-        menuIcon.classList.remove("change");
-    });
-});
-
-// close menu when clicking outside
-if (nav) {
-    nav.addEventListener("click", (e) => {
-        if (e.target === nav) {
-            nav.classList.remove("open");
-            if (menuIcon) menuIcon.classList.remove("change");
-        }
-    });
-}
-
-
-/* =========================
-   MODAL OPEN
-========================= */
-
-function openModal(el) {
-    if (!modal) return;
-
-    const img = el.querySelector("img");
-    const video = el.querySelector("video");
-
-    // reset modal state
-    if (modalImg) {
-        modalImg.src = "";
-        modalImg.style.display = "none";
-    }
-
-    if (modalVideo) {
-        modalVideo.pause();
-        modalVideo.currentTime = 0;
-        modalVideo.src = "";
-        modalVideo.style.display = "none";
-    }
-
-    // IMAGE
-    if (img) {
-        modalImg.src = img.src;
-        modalImg.style.display = "block";
-
-        modalTitle.textContent = img.dataset.title || "";
-        modalDesc.textContent = img.dataset.desc || "";
-
-        modal.classList.add("open");
-        return;
-    }
-
-    // VIDEO
-    if (video) {
-        const source = video.querySelector("source");
-
-        modalVideo.src = source ? source.src : video.src;
-        modalVideo.style.display = "block";
-
-        modalVideo.loop = true;
-        modalVideo.muted = true;
-        modalVideo.playsInline = true;
-
-        modalVideo.load();
-        modalVideo.play().catch(() => {});
-
-        modalTitle.textContent = el.dataset.title || "";
-        modalDesc.textContent = el.dataset.desc || "";
-
-        modal.classList.add("open");
-        return;
-    }
-
-    console.log("No media found in portfolio item:", el);
-}
-
-document.querySelectorAll(".portfolio-item").forEach(item => {
-    const video = item.querySelector("video");
-
-    if (!video) return;
-
-    item.addEventListener("mouseenter", () => {
-        video.play().catch(() => {});
-    });
-
-    item.addEventListener("mouseleave", () => {
-        video.pause();
-    });
-});
-
-
-
-/* =========================
-   MODAL CLOSE
-========================= */
-
-function closeModal() {
-    if (!modal) return;
-
-    modal.classList.remove("open");
-
-    if (modalImg) {
-        modalImg.src = "";
-        modalImg.style.display = "none";
-    }
-
-    if (modalVideo) {
-        modalVideo.pause();
-        modalVideo.currentTime = 0;
-        modalVideo.src = "";
-        modalVideo.style.display = "none";
-    }
-}
-
-// click outside modal closes
-if (modal) {
-    modal.addEventListener("click", (e) => {
-        if (e.target === modal) {
-            closeModal();
-        }
-    });
-}
-
-
-/* =========================
-   ESC KEY (GLOBAL)
-========================= */
-
-document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") {
-        if (nav) {
-            nav.classList.remove("open");
-            if (menuIcon) menuIcon.classList.remove("change");
-        }
-        closeModal();
-    }
-});
-
-
-/* =========================
-   BACK TO TOP
-========================= */
-
-function topFunction() {
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-    });
-}
-
-if (topBtn) {
-    window.addEventListener("scroll", () => {
-        if (window.scrollY > 300) {
-            topBtn.classList.add("show");
-        } else {
-            topBtn.classList.remove("show");
-        }
-    });
-}
-
-
-/* =========================
-   THEME TOGGLE
-========================= */
-
-if (themeBtn) {
-    const text = themeBtn.querySelector(".btn-text");
-    const icon = themeBtn.querySelector(".btn-icon");
-
-    const savedTheme = localStorage.getItem("theme");
-
-    if (savedTheme === "dark") {
-        document.body.classList.add("dark-mode");
-        if (text) text.textContent = "Dark Mode";
-        if (icon) icon.textContent = "🌙";
-    } else {
-        if (text) text.textContent = "Light Mode";
-        if (icon) icon.textContent = "☀️";
-    }
-
-    themeBtn.addEventListener("click", () => {
-        const isDark = document.body.classList.toggle("dark-mode");
-
-        localStorage.setItem("theme", isDark ? "dark" : "light");
-
-        if (text) text.textContent = isDark ? "Dark Mode" : "Light Mode";
-        if (icon) icon.textContent = isDark ? "🌙" : "☀️";
-    });
-}
-
-
-/* =========================
-   SCROLL PROGRESS BAR
-========================= */
-
-function updateScrollProgress() {
-    if (!scrollBar) return;
-
-    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-
-    const scrollHeight =
-        document.documentElement.scrollHeight -
-        document.documentElement.clientHeight;
-
-    const progress = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
-
-    scrollBar.style.width = `${progress}%`;
-}
-
-window.addEventListener("scroll", updateScrollProgress);
-window.addEventListener("resize", updateScrollProgress);
-window.addEventListener("load", updateScrollProgress);
-
-
-</script>
+<script src="script.js"></script>
 
 
 

@@ -14,6 +14,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&display=swap" rel="stylesheet">
 
+     <!-- Emojis-->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 </head>
 
 <body>
@@ -26,31 +29,36 @@
     </h1>
 
     <!-- DESKTOP NAV -->
-    <nav class="desktop-nav">
-        <a href="index.html#summary">Summary</a>
-        <a href="index.html#about">About</a>
-        <a href="index.html#skills">Skills</a>
-        <a href="index.html#portfolio">Portfolio</a>
-        <a href="index.html#achievements">Achievements</a>
-        <a href="contact.html">Contact</a>
-    </nav>
+        <nav class="desktop-nav">
+            <a href="index.html#summary"><i class="fa-solid fa-house"></i> Summary</a>
+            <a href="index.html#about"><i class="fa-solid fa-user"></i> About</a>
+            <a href="index.html#skills"><i class="fa-solid fa-code"></i> Skills</a>
+            <a href="index.html#portfolio"><i class="fa-solid fa-image"></i> Portfolio</a>
+            <a href="index.html#achievements"><i class="fa-solid fa-trophy"></i> Achievements</a>
+            <a href="contact.html"><i class="fa-solid fa-envelope"></i> Contact</a>
+        </nav>
 
     <div id="rightNavigation">
 
-        <!-- MOBILE HAMBURGER -->
+        <!-- HAMBURGER (MOBILE ONLY) -->
         <div class="menu-icon" onclick="toggleMenu(this)">
             <div></div>
             <div></div>
             <div></div>
         </div>
 
-        <!-- THEME TOGGLE -->
+        <!-- THEME BUTTON -->
         <button id="toggleButton" type="button">
             <span class="btn-text">Light Mode</span>
             <span class="btn-icon">☀️</span>
         </button>
 
     </div>
+
+        <div id="scrollProgress">
+    <div id="scrollBar"></div>
+</div>
+
 
 </header>
 
@@ -91,24 +99,32 @@
 
         <!-- CONTACT INFO CARD -->
         <div class="contact-card">
-
             <h3>Contact Information</h3>
 
             <p>
                 <i class="fa-solid fa-envelope"></i>
-                <strong>Email:</strong> jdmh.joshua@gmail.com
+                <span>jdmh.joshua@gmail.com</span>
+            </p>
+
+            <p>
+                <i class="fa-solid fa-phone"></i>
+                <span>Available on request</span>
             </p>
 
             <p>
                 <i class="fa-solid fa-location-dot"></i>
-                <strong>Location:</strong> Sydney, Australia
+                <span>Sydney, NSW</span>
             </p>
 
             <p>
-                <i class="fa-solid fa-user"></i>
-                <strong>Status:</strong> Open to part-time / entry-level roles
+                <i class="fa-brands fa-github"></i>
+                <span>github.com/JoshGit15</span>
             </p>
 
+            <p>
+                <i class="fa-brands fa-linkedin"></i>
+                <span>linkedin.com/in/yourprofile</span>
+            </p>
         </div>
 
         <!-- CONTACT FORM -->
@@ -143,101 +159,8 @@
 </footer>
 
 <!-- ================= SCRIPT ================= -->
-<script>
-const nav = document.getElementById("myNav");
-const menuIcon = document.querySelector(".menu-icon");
+<script src="script.js"></script>
 
-function toggleMenu(icon) {
-    if (!nav || !menuIcon) return;
-    icon.classList.toggle("change");
-    nav.classList.toggle("open");
-}
-
-if (nav && menuIcon) {
-    document.querySelectorAll(".overlay-content a").forEach(link => {
-        link.addEventListener("click", () => {
-            nav.classList.remove("open");
-            menuIcon.classList.remove("change");
-        });
-    });
-
-    nav.addEventListener("click", (e) => {
-        if (e.target === nav) {
-            nav.classList.remove("open");
-            menuIcon.classList.remove("change");
-        }
-    });
-}
-
-// ================= Theme Toggle =================
-
-const themeBtn = document.getElementById("toggleButton");
-
-// ALWAYS apply saved theme (even if button missing)
-const savedTheme = localStorage.getItem("theme");
-
-if (savedTheme === "dark") {
-    document.body.classList.add("dark-mode");
-}
-
-// only attach button behavior if it exists
-if (themeBtn) {
-    const text = themeBtn.querySelector(".btn-text");
-    const icon = themeBtn.querySelector(".btn-icon");
-
-    const updateUI = () => {
-        const isDark = document.body.classList.contains("dark-mode");
-
-        if (text) text.textContent = isDark ? "Dark Mode" : "Light Mode";
-        if (icon) icon.textContent = isDark ? "🌙" : "☀️";
-    };
-
-    updateUI();
-
-    themeBtn.addEventListener("click", () => {
-        document.body.classList.toggle("dark-mode");
-
-        localStorage.setItem(
-            "theme",
-            document.body.classList.contains("dark-mode") ? "dark" : "light"
-        );
-
-        updateUI();
-    });
-}
-
-// Weather
-const latitude = -34.425072;
-const longitude = 150.893143;
-
-const url = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,wind_speed_10m`;
-
-fetch(url)
-    .then(response => {
-        if (!response.ok) {
-            throw new Error("Weather API failed");
-        }
-        return response.json();
-    })
-    .then(data => {
-
-        const temp = data.current.temperature_2m;
-        const wind = data.current.wind_speed_10m;
-
-        document.getElementById('weather-result').innerHTML = `
-            <p>🌡️ Temperature: ${temp}°</p>
-            <p>💨 Wind Speed: ${wind}</p>
-        `;
-    })
-    .catch(error => {
-        document.getElementById('weather-result').innerHTML =
-            "⚠️ Weather failed to load";
-        console.error(error);
-    });
-
-     src="script.js"
-
-</script>
 
 </body>
 </html>

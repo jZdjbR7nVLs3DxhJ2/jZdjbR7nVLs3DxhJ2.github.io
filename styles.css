@@ -58,12 +58,13 @@ body.dark-mode section {
 body.dark-mode {
     background: #0f0f0f;
     color: #f5f5f5;
-    body.dark-mode .portfolio-item,
-    body.dark-mode .skill-category,
-    body.dark-mode .contact-card,
-    body.dark-mode .contact-form {
+}
+
+body.dark-mode .portfolio-item,
+body.dark-mode .skill-category,
+body.dark-mode .contact-card,
+body.dark-mode .contact-form {
     border: 1px solid rgba(255,255,255,0.05);
-    }
 }
 
 /* =========================
@@ -105,30 +106,22 @@ header {
 }
 
 #navigationBar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 30px;
     position: sticky;
     top: 0;
     z-index: 1000;
-    opacity: 1;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    position: sticky;
+
     display: flex;
     justify-content: space-between;
     align-items: center;
+
     height: var(--header-height);
-    position: sticky;
-    overflow: hidden;
+
+    padding: 20px 30px;
+
     background: rgba(255, 255, 255, 0.98);
     backdrop-filter: blur(10px);
-    height: var(--header-height);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
+
+    overflow: hidden;
 }
 body.dark-mode #navigationBar {
     background: rgba(15, 15, 15, 0.98);
@@ -355,8 +348,7 @@ h3 {
     align-items: center;
     justify-content: center;
     text-align: center;
-
-    padding: calc(var(--header-height)px) 20px 60px;
+    padding: var(--header-height) 20px 60px;
 }
 
 .hero-title {

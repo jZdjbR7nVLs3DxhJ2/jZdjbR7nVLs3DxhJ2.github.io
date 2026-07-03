@@ -3,6 +3,7 @@
    script.js
 ========================================== */
 
+
 /* ========= ELEMENTS ========= */
 
 const nav = document.getElementById("myNav");
@@ -71,17 +72,23 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 });
 
 
-/* ==========================================
-   MODAL
-========================================== */
-
 function openModal(el) {
 
-    if (!modal) return;
+    const modal = document.getElementById("imageModal");
+    const modalImg = document.getElementById("modalImage");
+    const modalVideo = document.getElementById("modalVideo");
+    const modalTitle = document.getElementById("modalTitle");
+    const modalDesc = document.getElementById("modalDesc");
+
+    if (!modal || !modalImg || !modalVideo) {
+        console.error("Modal elements missing");
+        return;
+    }
 
     const img = el.querySelector("img");
     const video = el.querySelector("video");
 
+    // RESET
     modalImg.style.display = "none";
     modalVideo.style.display = "none";
 
@@ -89,54 +96,81 @@ function openModal(el) {
     modalVideo.pause();
     modalVideo.currentTime = 0;
     modalVideo.src = "";
+    modalVideo.load();
 
+    // TEXT (safe fallback)
+    modalTitle.textContent = el.dataset.title || "";
+    modalDesc.textContent = el.dataset.desc || "";
+
+    // IMAGE
     if (img) {
-
         modalImg.src = img.src;
         modalImg.style.display = "block";
-
-        modalTitle.textContent = img.dataset.title || "";
-        modalDesc.textContent = img.dataset.desc || "";
-
     }
 
+    // VIDEO
     if (video) {
         const source = video.querySelector("source");
+        const videoSrc = source ? source.src : video.src;
 
-        if (source) {
-            modalVideo.src = source.src;
-        }
-
+        modalVideo.src = videoSrc;
         modalVideo.style.display = "block";
+
         modalVideo.loop = true;
         modalVideo.muted = true;
-        modalVideo.playsInline = true;
+
         modalVideo.load();
-
-        modalVideo.play().catch(() => {});
+        modalVideo.play().catch(console.log);
     }
 
-        modal.classList.add("open");
+    modal.classList.add("open");
+}
 
-    }
+/* ==========================================
+   CLOSE MODAL
+========================================== */
 
 function closeModal() {
+
+    const modal = document.getElementById("imageModal");
+    const modalImg = document.getElementById("modalImage");
+    const modalVideo = document.getElementById("modalVideo");
 
     modal?.classList.remove("open");
 
     modalImg.src = "";
+
     modalVideo.pause();
     modalVideo.currentTime = 0;
-    modalVideo.src = "";
-
+    modalVideo.removeAttribute("src");
+    modalVideo.load();
 }
 
-modal?.addEventListener("click", (e) => {
+
+/* ==========================================
+   CLICK OUTSIDE TO CLOSE
+========================================== */
+
+document.addEventListener("click", (e) => {
+    const modal = document.getElementById("imageModal");
 
     if (e.target === modal) {
         closeModal();
     }
+});
 
+
+/* ==========================================
+   ESC KEY CLOSE
+========================================== */
+
+document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+        const modal = document.getElementById("imageModal");
+        if (modal && modal.classList.contains("open")) {
+            closeModal();
+        }
+    }
 });
 
 
@@ -177,8 +211,6 @@ document.querySelectorAll(".achievement-toggle").forEach(button => {
     });
 
 });
-
-
 /* ==========================================
    BACK TO TOP BUTTON
 ========================================== */

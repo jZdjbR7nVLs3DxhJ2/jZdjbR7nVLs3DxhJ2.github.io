@@ -25,8 +25,9 @@
 <body>
 
 <!-- ================= BACK TO TOP ================= -->
-<button onclick="topFunction()" id="myBtn">Top</button>
-
+<button onclick="topFunction()" id="myBtn" aria-label="Back to top">
+    <i class="fa-solid fa-arrow-up"></i>
+</button>
 <!-- ================= HEADER ================= -->
 <header id="navigationBar">
 
@@ -345,10 +346,13 @@
 
     <div class="portfolio-grid">
 
-        <div class="portfolio-item" onclick="openModal(this)">
-            <img src="Isometric Bedroom.png"
-                 data-title="Isometric Bedroom"
-                 data-desc="A detailed isometric interior scene created in Blender, focusing on composition, lighting balance, and spatial design. The project demonstrates understanding of camera framing, material variation, and scene layout to create a visually coherent environment.">
+        <!-- ISOMETRIC BEDROOM -->
+        <div class="portfolio-item"
+            onclick="openModal(this)"
+            data-title="Isometric Bedroom"
+            data-desc="A detailed isometric interior scene created in Blender, focusing on composition, lighting balance, and spatial design. The project demonstrates understanding of camera framing, material variation, and scene layout to create a visually coherent environment.">
+
+            <img src="Isometric Bedroom.png">
 
             <div class="portfolio-text">
                 <h3>Isometric Bedroom</h3>
@@ -356,10 +360,13 @@
             </div>
         </div>
 
-        <div class="portfolio-item" onclick="openModal(this)">
-            <img src="Can.png"
-                 data-title="Coca-Cola Can"
-                 data-desc="A hard-surface modelling study focused on achieving realistic proportions, surface detail, and material accuracy. Emphasis was placed on clean topology, reflective shader setup, and lighting to replicate a commercially lit product render.">
+        <!-- COKE CAN -->
+        <div class="portfolio-item"
+            onclick="openModal(this)"
+            data-title="Coca-Cola Can"
+            data-desc="A hard-surface modelling study focused on achieving realistic proportions, surface detail, and material accuracy. Emphasis was placed on clean topology, reflective shader setup, and lighting to replicate a commercially lit product render.">
+
+            <img src="Can.png">
 
             <div class="portfolio-text">
                 <h3>Coke Can</h3>
@@ -367,10 +374,13 @@
             </div>
         </div>
 
-        <div class="portfolio-item" onclick="openModal(this)">
-            <img src="Stylized Temple.png"
-                 data-title="Stylized Temple"
-                 data-desc="A stylized architectural environment exploring shape language, lighting, and atmosphere. The project highlights environment design fundamentals, including silhouette clarity, material stylisation, and mood-driven lighting composition.">
+        <!-- STYLIZED TEMPLE -->
+        <div class="portfolio-item"
+            onclick="openModal(this)"
+            data-title="Stylized Temple"
+            data-desc="A stylized architectural environment exploring shape language, lighting, and atmosphere. The project highlights environment design fundamentals, including silhouette clarity, material stylisation, and mood-driven lighting composition.">
+
+            <img src="Stylized Temple.png">
 
             <div class="portfolio-text">
                 <h3>Stylized Temple</h3>
@@ -378,10 +388,13 @@
             </div>
         </div>
 
-        <div class="portfolio-item" onclick="openModal(this)">
-            <img src="Chair.png"
-                 data-title="Hard Surface Chair"
-                 data-desc="A precision-focused hard-surface modelling exercise demonstrating clean geometry, edge control, and accurate form development. The model was created with attention to real-world structure and rendering consistency.">
+        <!-- CHAIR -->
+        <div class="portfolio-item"
+            onclick="openModal(this)"
+            data-title="Hard Surface Chair"
+            data-desc="A precision-focused hard-surface modelling exercise demonstrating clean geometry, edge control, and accurate form development. The model was created with attention to real-world structure and rendering consistency.">
+
+            <img src="Chair.png">
 
             <div class="portfolio-text">
                 <h3>Hard Surface Chair</h3>
@@ -389,23 +402,25 @@
             </div>
         </div>
 
-    <div class="portfolio-item"
-        onclick="openModal(this)"
-        data-title="AirPods Product Render"
-        data-desc="A product-focused 3D animation exploring lighting, material realism, and smooth looping motion presentation.">
+        <!-- AIRPODS (VIDEO) -->
+        <div class="portfolio-item"
+            onclick="openModal(this)"
+            data-title="AirPods Product Render"
+            data-desc="A high-quality product animation of AirPods created with a focus on realistic lighting, material accuracy, and smooth motion design. The project explores clean product presentation techniques, soft reflections, and cinematic looping animation to highlight form, detail, and commercial-style visual appeal.">
 
-        <video muted playsinline loop preload="metadata">
-            <source src="Airpods.webm" type="video/webm">
-        </video>
+            <video muted playsinline loop preload="metadata">
+                <source src="Airpods.webm" type="video/webm">
+            </video>
 
-        <div class="portfolio-text">
-            <h3>AirPods</h3>
-            <p>Product • Lighting • Animation</p>
+            <div class="portfolio-text">
+                <h3>AirPods</h3>
+                <p>Product • Lighting • Animation</p>
+            </div>
         </div>
+
     </div>
 
 </section>
-
 <!-- ===== ACHIEVEMENTS ===== -->
 <section id="achievements">
 
@@ -494,7 +509,6 @@
 
 <!-- ================= SCRIPT ================= -->
 <script src="script.js"></script>
-
 
 
 </body>

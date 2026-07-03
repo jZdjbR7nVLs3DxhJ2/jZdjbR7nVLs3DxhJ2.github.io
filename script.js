@@ -187,29 +187,22 @@ function closeModal() {
 }
 
 
-/* ==========================================
-   CLICK OUTSIDE CLOSE
-========================================== */
-
-document.addEventListener("click", (e) => {
-    const modal = document.getElementById("imageModal");
-
-    if (modal.classList.contains("open") && e.target === modal) {
-        closeModal();
-    }
-});
-
 
 /* ==========================================
    KEYBOARD CONTROLS
 ========================================== */
 
 document.addEventListener("keydown", (e) => {
-
     const modal = document.getElementById("imageModal");
-    if (!modal.classList.contains("open")) return;
 
-    if (e.key === "Escape") closeModal();
+    if (e.key === "Escape") {
+        closeModal();
+        nav?.classList.remove("open");
+        menuIcon?.classList.remove("change");
+    }
+
+    if (!modal?.classList.contains("open")) return;
+
     if (e.key === "ArrowRight") nextItem();
     if (e.key === "ArrowLeft") prevItem();
 });
@@ -401,20 +394,22 @@ if (weather) {
 
 
 /* ==========================================
-   ESC KEY
+   Keyboard Support
 ========================================== */
 
 document.addEventListener("keydown", (e) => {
+    const modal = document.getElementById("imageModal");
 
     if (e.key === "Escape") {
-
         closeModal();
-
         nav?.classList.remove("open");
         menuIcon?.classList.remove("change");
-
     }
 
+    if (!modal?.classList.contains("open")) return;
+
+    if (e.key === "ArrowRight") nextItem();
+    if (e.key === "ArrowLeft") prevItem();
 });
 
 
@@ -483,9 +478,6 @@ if (window.innerWidth > 768) {
                 if (entry.isIntersecting) {
                     entry.target.classList.add("show");
                     entry.target.classList.remove("reveal");
-                } else {
-                    entry.target.classList.remove("show");
-                    entry.target.classList.add("reveal");
                 }
 
             });

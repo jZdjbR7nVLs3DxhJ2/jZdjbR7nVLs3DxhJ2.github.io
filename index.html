@@ -134,6 +134,14 @@
                 Featured Project
             </a>
 
+            <a href="https://github.com/JoshGit15"
+                class="btn secondary"
+                target="_blank"
+                rel="noopener noreferrer">
+                    <i class="fa-brands fa-github"></i>
+                    GitHub
+            </a>
+
             <!-- CONTACT -->
             <a href="contact.html"
                class="btn secondary">
@@ -345,6 +353,45 @@
 
 </section>
 
+    <!-- ===== CURRENTLY LEARNING ===== -->
+<section id="learning">
+
+    <h2>Currently Learning</h2>
+
+    <p class="learning-intro">
+        I enjoy continually expanding my skills by exploring new technologies and improving my existing knowledge through personal projects and experimentation.
+    </p>
+
+    <div class="learning-grid">
+
+        <div class="learning-card">
+            <i class="fa-solid fa-code"></i>
+            <h3>Modern JavaScript</h3>
+            <p>Building more interactive applications using modern JavaScript concepts and cleaner code practices.</p>
+        </div>
+
+        <div class="learning-card">
+            <i class="fa-solid fa-cloud"></i>
+            <h3>Working with APIs</h3>
+            <p>Connecting websites to external services to display live data and create dynamic user experiences.</p>
+        </div>
+
+        <div class="learning-card">
+            <i class="fa-solid fa-palette"></i>
+            <h3>UI / UX Design</h3>
+            <p>Creating interfaces that are visually appealing, accessible and intuitive across all devices.</p>
+        </div>
+
+        <div class="learning-card">
+            <i class="fa-solid fa-cube"></i>
+            <h3>Blender Animation</h3>
+            <p>Improving animation, lighting and rendering techniques to create polished 3D presentations.</p>
+        </div>
+
+    </div>
+
+</section>
+
     <!-- ===== FEATURED PROJECT ===== -->
     <section id="featured-project">
 
@@ -352,9 +399,39 @@
 
         <div class="featured-card">
 
-            <p class="project-tag">
-                HTML • CSS • JavaScript
-            </p>
+<div class="project-tags">
+
+    <span class="tag html">
+        <i class="fa-brands fa-html5"></i>
+        HTML5
+    </span>
+
+    <span class="tag css">
+        <i class="fa-brands fa-css3-alt"></i>
+        CSS3
+    </span>
+
+    <span class="tag js">
+        <i class="fa-brands fa-js"></i>
+        JavaScript
+    </span>
+
+    <span class="tag responsive">
+        <i class="fa-solid fa-mobile-screen-button"></i>
+        Responsive
+    </span>
+
+    <span class="tag accessibility">
+        <i class="fa-solid fa-universal-access"></i>
+        Accessible
+    </span>
+
+    <span class="tag ui">
+        <i class="fa-solid fa-palette"></i>
+        UI Design
+    </span>
+
+</div>
 
             <h3>Interactive Portfolio Website</h3>
 
@@ -403,80 +480,135 @@
 <!-- ===== PORTFOLIO ===== -->
 <section id="portfolio">
 
-    <h2>3D Modelling Portfolio <br> (Click on each one for more info)</h2>
+    <h2>3D Modelling Portfolio <br>(Click on each project for more information)</h2>
 
     <div class="portfolio-grid">
 
         <!-- ISOMETRIC BEDROOM -->
         <div class="portfolio-item"
-            onclick="openModal(this)"
-            data-title="Isometric Bedroom"
-            data-desc="A detailed isometric interior scene created in Blender, focusing on composition, lighting balance, and spatial design. The project demonstrates understanding of camera framing, material variation, and scene layout to create a visually coherent environment.">
+             onclick="openModal(this)"
+             data-title="Isometric Bedroom"
+             data-desc="A detailed isometric interior scene created in Blender, focusing on composition, lighting balance, and spatial design. The project demonstrates understanding of camera framing, material variation, and scene layout to create a visually coherent environment.">
 
-            <img src="Isometric Bedroom.png">
+            <img src="Isometric Bedroom.png" alt="Isometric Bedroom">
+
+            <div class="portfolio-overlay">
+                <h3>Isometric Bedroom</h3>
+                <p>Lighting • Composition</p>
+
+                <span>
+                    <i class="fa-solid fa-up-right-and-down-left-from-center"></i>
+                    Click to View
+                </span>
+            </div>
 
             <div class="portfolio-text">
                 <h3>Isometric Bedroom</h3>
                 <p>Lighting • Composition</p>
             </div>
+
         </div>
 
         <!-- COKE CAN -->
         <div class="portfolio-item"
-            onclick="openModal(this)"
-            data-title="Coca-Cola Can"
-            data-desc="A hard-surface modelling study focused on achieving realistic proportions, surface detail, and material accuracy. Emphasis was placed on clean topology, reflective shader setup, and lighting to replicate a commercially lit product render.">
+             onclick="openModal(this)"
+             data-title="Coca-Cola Can"
+             data-desc="A hard-surface modelling study focused on achieving realistic proportions, surface detail, and material accuracy. Emphasis was placed on clean topology, reflective shader setup, and lighting to replicate a commercially lit product render.">
 
-            <img src="Can.png">
+            <img src="Can.png" alt="Coca-Cola Can">
+
+            <div class="portfolio-overlay">
+                <h3>Coca-Cola Can</h3>
+                <p>Materials • Hard Surface</p>
+
+                <span>
+                    <i class="fa-solid fa-up-right-and-down-left-from-center"></i>
+                    Click to View
+                </span>
+            </div>
 
             <div class="portfolio-text">
                 <h3>Coke Can</h3>
                 <p>Materials • Hard Surface</p>
             </div>
+
         </div>
 
         <!-- STYLIZED TEMPLE -->
         <div class="portfolio-item"
-            onclick="openModal(this)"
-            data-title="Stylized Temple"
-            data-desc="A stylized architectural environment exploring shape language, lighting, and atmosphere. The project highlights environment design fundamentals, including silhouette clarity, material stylisation, and mood-driven lighting composition.">
+             onclick="openModal(this)"
+             data-title="Stylized Temple"
+             data-desc="A stylized architectural environment exploring shape language, lighting, and atmosphere. The project highlights environment design fundamentals, including silhouette clarity, material stylisation, and mood-driven lighting composition.">
 
-            <img src="Stylized Temple.png">
+            <img src="Stylized Temple.png" alt="Stylized Temple">
+
+            <div class="portfolio-overlay">
+                <h3>Stylized Temple</h3>
+                <p>Environment • Lighting</p>
+
+                <span>
+                    <i class="fa-solid fa-up-right-and-down-left-from-center"></i>
+                    Click to View
+                </span>
+            </div>
 
             <div class="portfolio-text">
                 <h3>Stylized Temple</h3>
                 <p>Environment • Lighting</p>
             </div>
+
         </div>
 
-        <!-- CHAIR -->
+        <!-- HARD SURFACE CHAIR -->
         <div class="portfolio-item"
-            onclick="openModal(this)"
-            data-title="Hard Surface Chair"
-            data-desc="A precision-focused hard-surface modelling exercise demonstrating clean geometry, edge control, and accurate form development. The model was created with attention to real-world structure and rendering consistency.">
+             onclick="openModal(this)"
+             data-title="Hard Surface Chair"
+             data-desc="A precision-focused hard-surface modelling exercise demonstrating clean geometry, edge control, and accurate form development. The model was created with attention to real-world structure and rendering consistency.">
 
-            <img src="Chair.png">
+            <img src="Chair.png" alt="Hard Surface Chair">
+
+            <div class="portfolio-overlay">
+                <h3>Hard Surface Chair</h3>
+                <p>Modelling • Design</p>
+
+                <span>
+                    <i class="fa-solid fa-up-right-and-down-left-from-center"></i>
+                    Click to View
+                </span>
+            </div>
 
             <div class="portfolio-text">
                 <h3>Hard Surface Chair</h3>
                 <p>Modelling • Design</p>
             </div>
+
         </div>
 
-        <!-- AIRPODS (VIDEO) -->
+        <!-- AIRPODS -->
         <div class="portfolio-item"
-            onclick="openModal(this)"
-            data-title="AirPods Product Render"
-            data-desc="A high-quality product animation of AirPods created with a focus on realistic lighting, material accuracy, and smooth motion design. The project explores clean product presentation techniques, soft reflections, and cinematic looping animation to highlight form, detail, and commercial-style visual appeal.">
+             onclick="openModal(this)"
+             data-title="AirPods Product Render"
+             data-desc="A high-quality product animation of AirPods created with a focus on realistic lighting, material accuracy, and smooth motion design. The project explores clean product presentation techniques, soft reflections, and cinematic looping animation to highlight form, detail, and commercial-style visual appeal.">
 
             <video muted playsinline loop preload="metadata">
                 <source src="Airpods.webm" type="video/webm">
             </video>
 
+            <div class="portfolio-overlay">
+                <h3>AirPods</h3>
+                <p>Product • Lighting • Animation</p>
+
+                <span>
+                    <i class="fa-solid fa-up-right-and-down-left-from-center"></i>
+                    Click to View
+                </span>
+            </div>
+
             <div class="portfolio-text">
                 <h3>AirPods</h3>
                 <p>Product • Lighting • Animation</p>
             </div>
+
         </div>
 
     </div>
@@ -548,8 +680,38 @@
 
 <!-- ================= FOOTER ================= -->
 <footer>
-    <p>Joshua Halpin</p>
-    <p>Email: jdmh.joshua@gmail.com</p>
+
+    <h3>Joshua Halpin</h3>
+
+    <p class="footer-tagline">
+        Year 12 Student • Web Developer • 3D Designer
+    </p>
+
+    <div class="footer-links">
+
+        <a href="mailto:jdmh.joshua@gmail.com">
+            <i class="fa-solid fa-envelope"></i>
+            Email
+        </a>
+
+        <a href="https://github.com/JoshGit15"
+           target="_blank"
+           rel="noopener noreferrer">
+            <i class="fa-brands fa-github"></i>
+            GitHub
+        </a>
+
+        <a href="#summary">
+            <i class="fa-solid fa-house"></i>
+            Back to Top
+        </a>
+
+    </div>
+
+    <p class="copyright">
+        © 2026 Joshua Halpin. Built with HTML, CSS & JavaScript.
+    </p>
+
 </footer>
 
 <!-- ================= MODAL ================= -->
@@ -558,6 +720,7 @@
     <div class="modal-content">
 
         <button class="nav-btn prev" onclick="prevItem()">❮</button>
+        <button class="close-modal" onclick="closeModal()">✕</button>
 
         <img id="modalImage" style="display:none;">
         <video id="modalVideo" controls autoplay loop style="display:none;"></video>

@@ -469,34 +469,44 @@ if (typedText) {
 
 
 /* ==========================================
-    Reveal as Scroll
+    Reveal as Scroll (Desktop Only)
 ========================================== */
 
-const sections = document.querySelectorAll("section");
+if (window.innerWidth > 768) {
 
-const observer = new IntersectionObserver(
-    (entries) => {
-        entries.forEach(entry => {
-            
-            if (entry.isIntersecting) {
-                // scrolling down into view → show
-                entry.target.classList.add("show");
-                entry.target.classList.remove("reveal");
-            } else {
-                // scrolled back up / out of view → hide again
-                entry.target.classList.remove("show");
-                entry.target.classList.add("reveal");
-            }
+    const sections = document.querySelectorAll("section");
 
-        });
-    },
-    {
-        threshold: 0.2,
-        rootMargin: "0px 0px -10% 0px"
-    }
-);
+    const observer = new IntersectionObserver(
+        (entries) => {
+            entries.forEach(entry => {
 
-sections.forEach(section => {
-    section.classList.add("reveal");
-    observer.observe(section);
-});
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("show");
+                    entry.target.classList.remove("reveal");
+                } else {
+                    entry.target.classList.remove("show");
+                    entry.target.classList.add("reveal");
+                }
+
+            });
+        },
+        {
+            threshold: 0.2,
+            rootMargin: "0px 0px -10% 0px"
+        }
+    );
+
+    sections.forEach(section => {
+        section.classList.add("reveal");
+        observer.observe(section);
+    });
+
+} else {
+
+    // Mobile: show all sections immediately
+    document.querySelectorAll("section").forEach(section => {
+        section.classList.remove("reveal");
+        section.classList.add("show");
+    });
+
+}

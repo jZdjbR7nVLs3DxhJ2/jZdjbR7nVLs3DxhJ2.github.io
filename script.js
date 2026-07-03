@@ -60,9 +60,15 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         if (!target) return;
 
         e.preventDefault();
+
+        target.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
         });
 
     });
+
+});
 
 
 /* ==========================================
@@ -272,24 +278,31 @@ const weather = document.getElementById("weather-result");
 
 if (weather) {
 
-    const latitude = -34.425072;
-    const longitude = 150.893143;
+    // Wollongong CBD
+    const latitude = -34.4278;
+    const longitude = 150.8931;
 
-    fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,wind_speed_10m`)
-        .then(r => r.json())
-        .then(data => {
+    fetch(
+        `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,apparent_temperature,relative_humidity_2m,weather_code,wind_speed_10m,surface_pressure&timezone=Australia/Sydney`
+    )
+    .then(response => response.json())
+    .then(data => {
 
-            weather.innerHTML = `
-                <p>🌡️ Temperature: ${data.current.temperature_2m}°C</p>
-                <p>💨 Wind Speed: ${data.current.wind_speed_10m} km/h</p>
-            `;
+        const current = data.current;
 
-        })
-        .catch(() => {
+        weather.innerHTML = `
+            <p>🌤️ <strong>Current Weather - Wollongong</strong></p>
+            <p>🌡️ Temperature: ${current.temperature_2m}°C</p>
+            <p>🤗 Feels Like: ${current.apparent_temperature}°C</p>
+            <p>💧 Humidity: ${current.relative_humidity_2m}%</p>
+            <p>💨 Wind: ${current.wind_speed_10m} km/h</p>
+            <p>🌍 Pressure: ${current.surface_pressure} hPa</p>
+        `;
 
-            weather.innerHTML = "Unable to load weather.";
-
-        });
+    })
+    .catch(() => {
+        weather.innerHTML = "<p>Unable to load weather data.</p>";
+    });
 
 }
 

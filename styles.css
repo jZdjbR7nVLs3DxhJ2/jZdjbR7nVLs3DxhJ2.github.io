@@ -269,38 +269,41 @@ body.dark-mode .menu-icon div {
 ========================= */
 
 section {
-    margin-bottom: 200px;
-    padding: 40px 25px;
-    border-radius: 16px;
+    margin-bottom: 180px;
+    padding: 20px 0;
     background: transparent;
-
-    opacity: 1;
+    border: none;
+    box-shadow: none;
+    border-radius: 0;
 
     transition:
         transform 0.3s ease,
-        opacity 0.6s ease,
-        box-shadow 0.3s ease;
+        opacity 0.6s ease;
 }
 
 section:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    transform: none;
 }
 
 /* =========================
    ANIMATION STATE
 ========================= */
 
-section.reveal {
+/* =========================
+   REVEAL ON SCROLL
+========================= */
+
+.reveal {
     opacity: 0;
-    transform: translateX(80px) scale(0.98);
-    filter: blur(3px);
+    transform: translateY(60px);
+    transition:
+        opacity 0.8s ease,
+        transform 0.8s ease;
 }
 
-section.show {
+.show {
     opacity: 1;
-    transform: translateX(0) scale(1);
-    filter: blur(0);
+    transform: translateY(0);
 }
 
 section {
@@ -387,17 +390,30 @@ h3 {
 .hero-buttons {
     display: flex;
     justify-content: center;
-    gap: 15px;
+    align-items: center;
     flex-wrap: wrap;
+    gap: 28px;
+    margin-top: 35px;
+}
+
+.hero-buttons .btn i {
+    font-size: 1rem;
+    margin: 0;
 }
 
 /* buttons */
 .btn {
-    padding: 14px 26px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 15px 30px;
+
     border-radius: 10px;
     text-decoration: none;
     font-weight: 500;
-    transition: 0.2s ease;
+
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .btn, button {
@@ -446,51 +462,61 @@ h3 {
 
 .skills-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+    margin-top: 30px;
 }
 
 .skill-category {
-    padding: 15px;
-    border-radius: 10px;
-
+    aspect-ratio: 1 / 1;
     background: #f5f5f5;
-    color: #111;
+    border-radius: 18px;
+    padding: 25px;
 
-    transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
-                box-shadow 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 
-    will-change: transform;
+    text-align: center;
+
+    transition: all 0.3s ease;
 }
 
-/* force text consistency */
-.skill-category h3,
+.skill-category h3 {
+    margin-bottom: 18px;
+    font-size: 1.2rem;
+}
+
+.skill-category h3 i {
+    display: block;
+    font-size: 2rem;
+    margin-bottom: 12px;
+}
+
 .skill-category p {
-    color: inherit;
+    margin: 4px 0;
 }
 
-/* hover lift */
 .skill-category:hover {
-    transform: translateY(-8px) scale(1.03);
-
-    box-shadow:
-        0 12px 25px rgba(0, 0, 0, 0.12),
-        0 6px 10px rgba(0, 0, 0, 0.08);
-
-    z-index: 2;
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.12);
 }
 
-/* DARK MODE FIX (IMPORTANT) */
 body.dark-mode .skill-category {
     background: #1a1a1a;
-    color: #f5f5f5;
 }
 
-/* dark hover shadow */
-body.dark-mode .skill-category:hover {
-    box-shadow:
-        0 12px 25px rgba(255, 255, 255, 0.08),
-        0 6px 10px rgba(255, 255, 255, 0.05);
+@media (max-width: 900px) {
+    .skills-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .skills-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 /* =========================
@@ -536,6 +562,23 @@ body.dark-mode .portfolio-item {
     height: 180px;
     object-fit: cover;
     display: block;
+}
+
+
+/* =========================
+   PORTFOLIO TEXT
+========================= */
+
+.portfolio-text {
+    padding: 16px;
+}
+
+.portfolio-text h3 {
+    margin-bottom: 6px;
+}
+
+.portfolio-text p {
+    opacity: 0.75;
 }
 
 
@@ -1047,18 +1090,6 @@ body.dark-mode .weather-card {
 .weather-title {
     font-size: 1.6rem;
     margin-bottom: 15px;
-}
-
-/* Reval As Scroll */
-.reveal {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: all 0.8s ease;
-}
-
-.reveal.show {
-    opacity: 1;
-    transform: translateY(0);
 }
 
 /* Icon Style */

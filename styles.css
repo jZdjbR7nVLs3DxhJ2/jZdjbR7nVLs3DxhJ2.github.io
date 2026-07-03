@@ -946,6 +946,41 @@ body.dark-mode .achievement-toggle:hover {
     opacity: 0.9;
 }
 
+.nav-btn {
+    position: absolute;
+    top: 50%;
+    background: rgba(0,0,0,0.5);
+    color: white;
+    border: none;
+    font-size: 32px;
+    padding: 12px 16px;
+    cursor: pointer;
+    z-index: 20;
+    border-radius: 10px;
+    transition: 0.2s ease;
+    user-select: none;
+}
+
+.nav-btn:hover {
+    background: rgba(255,255,255,0.2);
+}
+
+.nav-btn.prev {
+    left: 10px;
+}
+
+.nav-btn.next {
+    right: 10px;
+}
+
+/* MOBILE FRIENDLY */
+@media (max-width: 768px) {
+    .nav-btn {
+        font-size: 26px;
+        padding: 10px 14px;
+    }
+}
+
 /* MOBILE */
 @media (max-width: 768px) {
     .modal-content {
@@ -962,6 +997,8 @@ body.dark-mode .achievement-toggle:hover {
         width: 100%;
     }
 }
+
+
 
 /* =========================
    FOOTER

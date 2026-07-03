@@ -492,16 +492,21 @@
 </footer>
 
 <!-- ================= MODAL ================= -->
-<div id="imageModal" class="modal" onclick="closeModal()">
+<div id="imageModal" class="modal">
 
     <div class="modal-content">
 
+        <button class="nav-btn prev" onclick="prevItem()">❮</button>
+
         <img id="modalImage" style="display:none;">
         <video id="modalVideo" controls autoplay loop style="display:none;"></video>
+
         <div class="modal-right">
             <h2 id="modalTitle"></h2>
             <p id="modalDesc"></p>
         </div>
+
+        <button class="nav-btn next" onclick="nextItem()">❯</button>
 
     </div>
 

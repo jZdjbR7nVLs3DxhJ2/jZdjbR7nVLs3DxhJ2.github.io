@@ -72,7 +72,33 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 });
 
 
+
+
+/* ==========================================
+   GALLERY SETUP
+========================================== */
+
+const items = Array.from(document.querySelectorAll(".portfolio-item"));
+let currentIndex = 0;
+
+
+/* ==========================================
+   OPEN MODAL
+========================================== */
+
 function openModal(el) {
+    currentIndex = items.indexOf(el);
+    showItem(currentIndex);
+
+    document.getElementById("imageModal").classList.add("open");
+}
+
+
+/* ==========================================
+   SHOW ITEM
+========================================== */
+
+function showItem(index) {
 
     const modal = document.getElementById("imageModal");
     const modalImg = document.getElementById("modalImage");
@@ -80,27 +106,27 @@ function openModal(el) {
     const modalTitle = document.getElementById("modalTitle");
     const modalDesc = document.getElementById("modalDesc");
 
-    if (!modal || !modalImg || !modalVideo) {
-        console.error("Modal elements missing");
-        return;
-    }
+    const item = items[index];
 
-    const img = el.querySelector("img");
-    const video = el.querySelector("video");
+    if (!item) return;
 
-    // RESET
+    const img = item.querySelector("img");
+    const video = item.querySelector("video");
+
+    // RESET MEDIA
     modalImg.style.display = "none";
     modalVideo.style.display = "none";
 
     modalImg.src = "";
+
     modalVideo.pause();
     modalVideo.currentTime = 0;
-    modalVideo.src = "";
+    modalVideo.removeAttribute("src");
     modalVideo.load();
 
-    // TEXT (safe fallback)
-    modalTitle.textContent = el.dataset.title || "";
-    modalDesc.textContent = el.dataset.desc || "";
+    // TEXT
+    modalTitle.textContent = item.dataset.title || "";
+    modalDesc.textContent = item.dataset.desc || "";
 
     // IMAGE
     if (img) {
@@ -118,25 +144,39 @@ function openModal(el) {
 
         modalVideo.loop = true;
         modalVideo.muted = true;
+        modalVideo.playsInline = true;
 
         modalVideo.load();
-        modalVideo.play().catch(console.log);
+        modalVideo.play().catch(() => {});
     }
-
-    modal.classList.add("open");
 }
+
+
+/* ==========================================
+   NAVIGATION
+========================================== */
+
+function nextItem() {
+    currentIndex = (currentIndex + 1) % items.length;
+    showItem(currentIndex);
+}
+
+function prevItem() {
+    currentIndex = (currentIndex - 1 + items.length) % items.length;
+    showItem(currentIndex);
+}
+
 
 /* ==========================================
    CLOSE MODAL
 ========================================== */
 
 function closeModal() {
-
     const modal = document.getElementById("imageModal");
     const modalImg = document.getElementById("modalImage");
     const modalVideo = document.getElementById("modalVideo");
 
-    modal?.classList.remove("open");
+    modal.classList.remove("open");
 
     modalImg.src = "";
 
@@ -148,40 +188,62 @@ function closeModal() {
 
 
 /* ==========================================
-   CLICK OUTSIDE TO CLOSE
+   CLICK OUTSIDE CLOSE
 ========================================== */
 
 document.addEventListener("click", (e) => {
     const modal = document.getElementById("imageModal");
 
-    if (e.target === modal) {
+    if (modal.classList.contains("open") && e.target === modal) {
         closeModal();
     }
 });
 
 
 /* ==========================================
-   ESC KEY CLOSE
+   KEYBOARD CONTROLS
 ========================================== */
 
 document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") {
-        const modal = document.getElementById("imageModal");
-        if (modal && modal.classList.contains("open")) {
-            closeModal();
-        }
-    }
+
+    const modal = document.getElementById("imageModal");
+    if (!modal.classList.contains("open")) return;
+
+    if (e.key === "Escape") closeModal();
+    if (e.key === "ArrowRight") nextItem();
+    if (e.key === "ArrowLeft") prevItem();
 });
 
 
 /* ==========================================
-   VIDEO HOVER PLAY
+   TOUCH SWIPE (MOBILE)
+========================================== */
+
+let touchStartX = 0;
+
+document.addEventListener("touchstart", (e) => {
+    touchStartX = e.touches[0].clientX;
+});
+
+document.addEventListener("touchend", (e) => {
+
+    const modal = document.getElementById("imageModal");
+    if (!modal.classList.contains("open")) return;
+
+    const diff = touchStartX - e.changedTouches[0].clientX;
+
+    if (diff > 50) nextItem();
+    if (diff < -50) prevItem();
+});
+
+
+/* ==========================================
+   HOVER VIDEO PREVIEW
 ========================================== */
 
 document.querySelectorAll(".portfolio-item").forEach(item => {
 
     const video = item.querySelector("video");
-
     if (!video) return;
 
     item.addEventListener("mouseenter", () => {
@@ -192,7 +254,6 @@ document.querySelectorAll(".portfolio-item").forEach(item => {
         video.pause();
         video.currentTime = 0;
     });
-
 });
 
 
@@ -355,6 +416,9 @@ document.addEventListener("keydown", (e) => {
     }
 
 });
+
+
+
 
 /* ==========================================
     Hero Typing Anim
